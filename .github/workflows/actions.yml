@@ -1,0 +1,33 @@
+name: Visiting My Streamlit Apps
+
+on:
+  schedule:
+    - cron: 0 17 * * 1,5
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out the repository content
+        uses: actions/checkout@v2
+
+      - name: set up python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: install requirements
+        run:
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: execute the script
+        run: python main.py
+
+      - name: commit and push README
+        run: |
+          git config --global user.name "${{ secrets.USERNAME_GITHUB }}"
+          git config --global user.email "${{ secrets.EMAIL_GITHUB }}"
+          git add README.md
+          git commit -m "updated README"
+          git push
