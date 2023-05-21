@@ -33,7 +33,7 @@ driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 # Visiting each of my Streamlit app and noting the timestamp when visiting
 timestamps = []
 
-for i,j in zip(df["Name"], df["Link"]):
+for i, j in zip(df["Name"], df["Link"]):
     current_timestamp = datetime.now()
     driver.get(j)
     time.sleep(10)
